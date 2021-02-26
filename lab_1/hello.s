@@ -5,7 +5,7 @@
 #************************************************************************
 
 .text
-str:	.asciz	"Felix Luebken, Taco Timmers\nstudy numbers...\nAssignment 1: your first simple program.\n"
+str:	.asciz	"Felix Luebken, Taco Timmers\n2687994, 2709762\nAssignment 1: your first simple program.\n"
 
 .global main
 #************************************************************************

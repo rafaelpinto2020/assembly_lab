@@ -5,8 +5,9 @@
 #************************************************************************
 
 .text
-titlestr:    	.asciz "Felix Luebken, Taco Timmers\nstudy numbers...\nAssignment 2: subroutines and I/O.\n"
+titlestr:    	.asciz "Felix Luebken, Taco Timmers\n2687994, 2809762\nAssignment 2: inout\n"
 promt:		.asciz "Please input a number: "
+response:	.asciz "Your incremented number: "
 formatstr:	.asciz "%ld"
 
 .global main
@@ -28,18 +29,24 @@ main:
 
 
 inout:
-#	movq	$0, %rax		#no vector registers for printf
-#	movq	$promt, %rdi		#load string promt
-#	call	printf
+	pushq	 %rbp			#store the caller's base pointer
+	movq	 %rsp, %rbp		#initialize the base pointer
+
+	movq	$0, %rax		#no vector registers
+	
+	movq	$promt, %rdi		#load string promt
+	call	printf			#call printf
 
 	subq	$8, %rsp		#reserves stack space for var
-	leaq	 -8(%rbp), %rsi		#load address of stack var in rsi
-#	movq	$formatstr, %rdi	#loads first arg of scanf
-#       movq    $0, %rax                #no vector registers for scanf
+	leaq	-8(%rbp), %rsi		#load address of stack var in rsi
+ 	movq	$formatstr, %rdi	#loads first arg of scanf
 
-	call	scanf
+	call	scanf			#call scanf
 
-	
+	incq	-8(%rbp)
+
+	movq	-8(%rbp),%rdi
+	call	printf
 
 end:
         mov     $0, %rdi                #loads exit code
